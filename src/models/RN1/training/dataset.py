@@ -54,18 +54,15 @@ class LitigationDataset(Dataset):
             if col in self.df.columns:
                 self.df[col] = self.df[col].fillna(0).astype(np.float32)
 
-        # Map classes
-        # Improcedência -> 0
-        # Extinção -> 0
-        # Parcial procedência -> 1
-        # Acordo -> 1
-        # Procedência -> 2
+        # Map classes (Binary: Win vs Loss)
+        # 0: VITORIA (Improcedência/Extinção)
+        # 1: PERDA (Parcial procedência/Acordo/Procedência)
         class_map = {
             'Improcedência': 0,
             'Extinção': 0,
             'Parcial procedência': 1,
             'Acordo': 1,
-            'Procedência': 2
+            'Procedência': 1
         }
         if self.target_class_col in self.df.columns:
             self.df['target_class'] = self.df[self.target_class_col].map(class_map).fillna(0).astype(int)

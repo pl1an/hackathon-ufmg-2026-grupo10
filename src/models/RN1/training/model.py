@@ -24,11 +24,11 @@ class LitigationModel(nn.Module):
         
         self.shared_backbone = nn.Sequential(*layers)
         
-        # Head 1: Outcome Classification (0: IMPROCEDENTE, 1: PARCIAL, 2: PROCEDENTE)
+        # Head 1: Outcome Classification (0: VITORIA/IMPROCEDENTE, 1: PERDA/PARCIAL OU PROCEDENTE)
         self.classifier_head = nn.Sequential(
             nn.Linear(last_dim, 16),
             nn.ReLU(),
-            nn.Linear(16, 3) # 3 classes
+            nn.Linear(16, 2) # 2 classes: Win or Loss
         )
         
         # Head 2: Value Regression (Expected Condemnation Value)

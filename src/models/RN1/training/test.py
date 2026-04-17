@@ -48,11 +48,11 @@ def run_inference():
         'Assunto': 'Não reconhece operação',
         'Sub-assunto': 'Golpe',
         'Valor da causa': 15000.0,
-        'Contrato': 1.0,
-        'Extrato': 1.0,
-        'Comprovante de crédito': 1.0,
+        'Contrato': 0.0,
+        'Extrato': 0.0,
+        'Comprovante de crédito': 0.0,
         'Dossiê': 1.0,
-        'Demonstrativo de evolução da dívida': 1.0,
+        'Demonstrativo de evolução da dívida': 0.0,
         'Laudo referenciado': 1.0
     }
     
@@ -80,7 +80,7 @@ def run_inference():
         probs = torch.nn.functional.softmax(logits, dim=1)
         
     # Results
-    outcomes = ['IMPROCEDENTE (Win)', 'PARCIAL', 'PROCEDENTE (Loss)']
+    outcomes = ['VITORIA (Win)', 'PERDA (Loss)']
     pred_class = torch.argmax(probs).item()
     
     p_win = probs[0, 0].item()

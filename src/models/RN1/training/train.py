@@ -91,37 +91,21 @@ def train_model(epochs=30, batch_size=64, lr=0.001):
             
             print(f"Epoch {epoch+1}/{epochs}, Train Loss: {train_loss/len(train_loader):.4f}, Val Loss: {val_loss/len(val_loader):.4f}")
             
-    # 4. Evaluation & Decision Logic (Final Test Set)
+    # 4. Evaluation & Classification Accuracy (Final Test Set)
     model.eval()
-    print("\nTesting decision logic on TEST set...")
+    print("\nEvaluating outcome classification on TEST set...")
     with torch.no_grad():
-        correct_decisions = 0
+        correct_preds = 0
         total = 0
-        test_loss = 0
         for x, y_class, y_val in test_loader:
             logits, pred_val = model(x)
-            probs = torch.nn.functional.softmax(logits, dim=1)
             
-            # Expected Loss = (1 - P(Improcedente)) * Predicted_Value
-            p_win = probs[:, 0]
-            expected_loss = (1 - p_win) * pred_val.squeeze()
-            
-            # Recover 'valor_causa' from normalized features
-            # 'Valor da causa' is index 3 in feature_cols
-            idx_causa = dataset.feature_cols.index('Valor da causa')
-            valor_causa = x[:, idx_causa] * dataset.scaler.scale_[idx_causa] + dataset.scaler.mean_[idx_causa]
-            
-            # Agreement Value heuristic: 40% of the 'valor_causa'
-            agreement_cost = valor_causa * 0.4 
-            
-            decision = (expected_loss > agreement_cost).long() # 1 for Agreement, 0 for Defense
-            
-            # Actual decision comparison: did the actual outcome cost more than our agreement threshold?
-            actual_loss_is_high = (y_val > agreement_cost).long()
-            correct_decisions += (decision == actual_loss_is_high).sum().item()
+            # Binary classification accuracy (0: Vitoria, 1: Perda)
+            preds = torch.argmax(logits, dim=1)
+            correct_preds += (preds == y_class).sum().item()
             total += y_class.size(0)
             
-    print(f"Decision Accuracy on TEST set (Agreement vs Defense): {correct_decisions/total:.2%}")
+    print(f"Classification Accuracy (Win/Loss) on TEST set: {correct_preds/total:.2%}")
     
     # 5. Save Model
     current_dir = os.path.dirname(os.path.abspath(__file__))

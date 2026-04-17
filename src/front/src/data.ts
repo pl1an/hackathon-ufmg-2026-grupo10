@@ -1,18 +1,11 @@
-export type ViewKey = 'login' | 'upload' | 'dashboard' | 'monitoring';
+export type ViewKey = 'login' | 'home' | 'upload' | 'dashboard' | 'monitoring';
 
 export const views: Array<{ key: ViewKey; label: string; icon: string; path: string }> = [
   { key: 'login', label: 'Login', icon: 'lock', path: '/login' },
+  { key: 'home', label: 'Home', icon: 'home', path: '/home' },
   { key: 'upload', label: 'File Hub', icon: 'upload_file', path: '/upload' },
   { key: 'dashboard', label: 'Decision Lab', icon: 'gavel', path: '/dashboard' },
   { key: 'monitoring', label: 'Monitoring', icon: 'analytics', path: '/monitoring' },
-];
-
-export const navigationItems = [
-  { label: 'Dashboard', icon: 'home', path: '/dashboard' },
-  { label: 'Process Autos', icon: 'description', path: '/upload' },
-  { label: 'Bank Evidence', icon: 'account_balance', path: '/upload' },
-  { label: 'Decision Lab', icon: 'gavel', path: '/dashboard' },
-  { label: 'Adherence', icon: 'analytics', path: '/monitoring' },
 ];
 
 export const dashboardDocs = [

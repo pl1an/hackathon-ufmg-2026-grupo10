@@ -1,10 +1,21 @@
-import { Icon } from '../../modules/ui/Icon';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { LoginInputs } from '../../modules/ui/LoginInputs/LoginInputs';
-import { LoginRoleSelector } from '../../modules/ui/LoginRoleSelector/LoginRoleSelector';
+import { LoginRoleSelector, type UserRole } from '../../modules/ui/LoginRoleSelector/LoginRoleSelector';
 import './LoginScreen.css';
 
 
 export function LoginScreen() {
+	const navigate = useNavigate();
+	const [selectedRole, setSelectedRole] = useState<UserRole>(() => {
+		const savedRole = window.localStorage.getItem('enteros-role');
+		return savedRole === 'Bank Administrator' ? 'Bank Administrator' : 'Lawyer';
+	});
+
+	const handleAccessSystem = () => {
+		window.localStorage.setItem('enteros-role', selectedRole);
+		navigate('/home');
+	};
 
 	return (
 		<main className="login-wrap login-screen">
@@ -19,7 +30,7 @@ export function LoginScreen() {
 			</div>
 
 			<section className="login-card login-screen__card">
-			<LoginRoleSelector onSelectRole={(role) => console.log("selected role: ", role)} />
+			<LoginRoleSelector initialRole={selectedRole} onSelectRole={(role) => setSelectedRole(role)} />
 
 			<div className="form-grid login-screen__form">
 
@@ -31,7 +42,7 @@ export function LoginScreen() {
 				<span className="muted login-screen__remember">Keep me authenticated for 24 hours</span>
 				</label>
 
-				<button type="button" className="access-button" onClick={() => navigation.navigate("dashboard")}>
+				<button type="button" className="access-button" onClick={handleAccessSystem}>
 					Access System
 				</button>
 			</div>

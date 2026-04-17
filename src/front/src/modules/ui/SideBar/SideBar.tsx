@@ -1,4 +1,3 @@
-import { navigationItems } from '../../../data';
 import { Icon } from '../Icon';
 
 export function SideBar({
@@ -8,6 +7,22 @@ export function SideBar({
   currentPath: string;
   onNavigate: (nextPath: string) => void;
 }) {
+
+  const savedRole = window.localStorage.getItem('enteros-role');
+  const isAdmin = savedRole === 'Bank Administrator';
+  const quickAction = isAdmin
+    ? { label: 'Monitoring', path: '/monitoring' }
+    : { label: 'New Analysis', path: '/upload' };
+
+  const navigationItems = [
+    { label: 'Home', icon: 'home', path: '/home' },
+    { label: 'Process Autos', icon: 'description', path: '/upload' },
+    { label: 'Bank Evidence', icon: 'account_balance', path: '/upload' },
+    { label: 'Decision Outcome', icon: 'gavel', path: '/dashboard' },
+    { label: 'Adherence', icon: 'analytics', path: '/monitoring' },
+  ];
+
+
   return (
     <aside className="sidebar">
       <div className="brand">
@@ -31,8 +46,8 @@ export function SideBar({
         ))}
       </ul>
 
-      <button className="sidebar-cta" type="button" onClick={() => onNavigate('/dashboard')}>
-        New Analysis
+      <button className="sidebar-cta" type="button" onClick={() => onNavigate(quickAction.path)}>
+        {quickAction.label}
       </button>
     </aside>
   );

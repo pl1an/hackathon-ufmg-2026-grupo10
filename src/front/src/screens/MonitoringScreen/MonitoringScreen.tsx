@@ -32,35 +32,6 @@ export function MonitoringScreen() {
           </div>
         </section>
 
-        <aside className="panel panel-inner monitoring-screen__feed-column">
-          <div className="section-heading">
-            <div>
-              <h3 className="section-title-strong monitoring-screen__feed-title">AI Recommendations</h3>
-              <p className="section-text monitoring-screen__feed-subtitle">Real-time policy alignment feed</p>
-            </div>
-            <button type="button" className="ghost-button" onClick={() => navigate('/dashboard')}>
-              Open Decision Lab
-            </button>
-          </div>
-
-          <div className="feed-list">
-            {recommendations.map((recommendation) => (
-              <article key={recommendation.caseId} className="feed-item monitoring-screen__feed-item">
-                <div className="feed-main monitoring-screen__feed-main">
-                  <div>
-                    <div className={`rec-title ${recommendation.tone}`}>{recommendation.title}</div>
-                    <h4 className="section-title-strong monitoring-screen__case-title">{recommendation.caseId}</h4>
-                    <p className="card-text monitoring-screen__feed-copy">{recommendation.description}</p>
-                  </div>
-                </div>
-                <div className="monitoring-screen__meta">
-                  <div className="muted monitoring-screen__time">{recommendation.time}</div>
-                  <span className={`tag ${recommendation.tone === 'success' ? 'success' : recommendation.tone === 'danger' ? 'danger' : 'warning'}`}>{recommendation.match}</span>
-                </div>
-              </article>
-            ))}
-          </div>
-        </aside>
       </div>
 
       <section className="panel panel-inner monitoring-screen__table-panel" style={{ marginTop: 24 }}>

@@ -90,6 +90,11 @@ body {
   position: relative;
 }
 
+input[type="checkbox"] {
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
 .sidebar {
   position: sticky;
   top: 0;
@@ -707,6 +712,7 @@ body {
 
 .icon-suffix {
   right: 12px;
+  border-radius: 10px;
 }
 
 .text-input {

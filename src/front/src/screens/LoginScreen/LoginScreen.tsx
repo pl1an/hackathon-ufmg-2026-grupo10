@@ -27,19 +27,13 @@ export function LoginScreen() {
 				<LoginInputs inputType='Password'></LoginInputs>
 
 				<label className="checkbox-row">
-				<input type="checkbox" />
+				<input type="checkbox"/>
 				<span className="muted login-screen__remember">Keep me authenticated for 24 hours</span>
 				</label>
 
 				<button type="button" className="access-button" onClick={() => navigation.navigate("dashboard")}>
 					Access System
 				</button>
-			</div>
-
-			<div className="login-screen__footer">
-				<p className="muted login-screen__footer-text">
-				Internal enterprise access only. <a href="/" onClick={(event) => event.preventDefault()} style={{ color: 'var(--secondary)', fontWeight: 700 }}>Request access credentials</a>
-				</p>
 			</div>
 			</section>
 		</div>

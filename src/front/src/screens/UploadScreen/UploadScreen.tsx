@@ -44,16 +44,17 @@ export function UploadScreen() {
       });
       setUploadProgress(60);
 
-      // Dispara a análise IA (DEV-2 implementa o pipeline; enquanto isso navega direto)
+      // Dispara a análise IA — se falhar (ex: 501), o upload ainda foi um sucesso
       try {
         await analyze.mutateAsync(processo.id);
-      } catch {
-        // Pipeline ainda em desenvolvimento — navega mesmo assim
+      } catch (err) {
+        console.warn('AI analysis triggered but returned error (expected in dev):', err);
       }
 
       setUploadProgress(100);
       setTimeout(() => navigate(`/dashboard/${processo.id}`), 400);
-    } catch {
+    } catch (err) {
+      console.error('Upload failed:', err);
       setError('Falha ao enviar os documentos. Verifique a conexão e tente novamente.');
       setUploadProgress(null);
     }

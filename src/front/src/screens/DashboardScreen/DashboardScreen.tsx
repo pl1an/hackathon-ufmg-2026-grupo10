@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAnalysis, useRegisterDecision, useAnalyzeProcesso } from '../../api/processes';
+import { useAnalysis, useRegisterDecision, useAnalyzeProcesso, useProcessos } from '../../api/processes';
 import { Icon } from '../../modules/ui/Icon';
 import { dashboardDocs, riskIndicators } from '../../data';
 import './DashboardScreen.css';
@@ -22,9 +22,11 @@ export function DashboardScreen() {
   const navigate = useNavigate();
   const { processoId } = useParams<{ processoId: string }>();
 
-  const { data: analise, isLoading, error } = useAnalysis(processoId);
+  const { data: analise, isLoading: loadingAnalysis, error: analysisError } = useAnalysis(processoId);
+  const { data: processos, isLoading: loadingList } = useProcessos();
   const registerDecision = useRegisterDecision();
   const analyze = useAnalyzeProcesso();
+  
   const [justificativa, setJustificativa] = useState('');
   const [valorAjuste, setValorAjuste] = useState('');
   const [decided, setDecided] = useState(false);
@@ -45,22 +47,54 @@ export function DashboardScreen() {
     await analyze.mutateAsync(processoId);
   }
 
-  // ── Loading / error states ──────────────────────────────────────────────
+  // ── Render List (Decision Lab) if no ID ───────────────────────────────────
   if (!processoId) {
     return (
       <main className="screen dashboard-screen">
-        <div className="panel panel-inner" style={{ padding: '2rem', textAlign: 'center' }}>
-          <Icon name="inbox" style={{ fontSize: '3rem', color: 'var(--muted)' }} />
-          <p className="lede" style={{ marginTop: 16 }}>No process selected. Upload documents first.</p>
-          <button className="primary-button" style={{ marginTop: 16 }} onClick={() => navigate('/upload')}>
-            Go to Evidence Hub
-          </button>
+        <section className="panel panel-inner hero-banner">
+          <div className="title-kicker">Operational Workflow</div>
+          <h1 className="headline">Decision Lab</h1>
+          <p className="lede">Manage incoming cases and track AI recommendation status.</p>
+        </section>
+
+        <div className="panel panel-inner" style={{ marginTop: 24 }}>
+          <div className="section-heading">
+            <h3 className="section-title">Active Processes</h3>
+            <button className="primary-button" onClick={() => navigate('/upload')}>
+              <Icon name="playlist_add" /> New Analysis
+            </button>
+          </div>
+
+          <div className="activity-list" style={{ marginTop: 16 }}>
+            {loadingList ? (
+              <p className="muted">Loading processes…</p>
+            ) : processos?.length === 0 ? (
+              <p className="muted">No processes found. Start by uploading legal documents.</p>
+            ) : (
+              processos?.map((p) => (
+                <div key={p.id} className="activity-item" style={{ cursor: 'pointer' }} onClick={() => navigate(`/dashboard/${p.id}`)}>
+                  <div className="activity-main">
+                    <div className="doc-icon"><Icon name="description" /></div>
+                    <div>
+                      <strong>{p.numero_processo}</strong>
+                      <p className="muted" style={{ fontSize: '0.8rem' }}>Added {new Date(p.created_at).toLocaleDateString()}</p>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <span className={`status-pill ${p.status === 'concluido' ? 'success' : 'warning'}`}>{p.status}</span>
+                    <Icon name="chevron_right" />
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </main>
     );
   }
 
-  if (isLoading) {
+  // ── Analysis detail logic ─────────────────────────────────────────────────
+  if (loadingAnalysis) {
     return (
       <main className="screen dashboard-screen">
         <div className="panel panel-inner" style={{ padding: '2rem', textAlign: 'center' }}>
@@ -71,7 +105,7 @@ export function DashboardScreen() {
     );
   }
 
-  if (error || !analise) {
+  if (analysisError || !analise) {
     return (
       <main className="screen dashboard-screen">
         <div className="panel panel-inner" style={{ padding: '2rem', textAlign: 'center' }}>
@@ -89,7 +123,6 @@ export function DashboardScreen() {
   const isAcordo = analise.decisao === 'ACORDO';
   const proposta = analise.proposta;
 
-  // ── Analysis result ─────────────────────────────────────────────────────
   return (
     <main className="screen dashboard-screen">
       <div className="hero-grid dashboard-screen__grid">
@@ -139,7 +172,6 @@ export function DashboardScreen() {
             </div>
           )}
 
-          {/* HITL — Human-in-the-Loop */}
           {!decided ? (
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 12 }}>
               {isAcordo && (

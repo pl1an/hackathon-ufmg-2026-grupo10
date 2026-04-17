@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tesseract-ocr-por \
     libpq-dev \
     gcc \
+    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -15,4 +16,7 @@ RUN pip install --upgrade pip setuptools && \
 
 COPY . .
 
+RUN chmod +x scripts/init_db.sh
+
 EXPOSE 8000
+ENTRYPOINT ["scripts/init_db.sh"]

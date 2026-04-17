@@ -25,8 +25,8 @@ export function SideBar({
 
   const navigationItems = [
     { label: 'Home', icon: 'home', path: '/home' },
-    userRole === 'Lawyer' && { label: 'Process Autos', icon: 'description', path: '/upload' },
-    userRole === 'Lawyer' && { label: 'Decision Outcome', icon: 'gavel', path: '/dashboard' },
+    userRole === 'Lawyer' && { label: 'Evidence Hub', icon: 'upload_file', path: '/upload' },
+    userRole === 'Lawyer' && { label: 'Decision Lab', icon: 'gavel', path: '/processes' },
     userRole === 'Bank Administrator' && { label: 'Monitoring', icon: 'analytics', path: '/monitoring' },
   ];
 
@@ -50,7 +50,7 @@ export function SideBar({
         {navigationItems.map((item) => (
             item && (
               <li key={item.label}>
-                <button className={`nav-button ${currentPath === item.path || currentPath.startsWith(item.path + '/') ? 'active' : ''}`} type="button" onClick={() => onNavigate(item.path)}>
+                <button className={`nav-button ${currentPath === item.path || (item.path !== '/home' && currentPath.startsWith(item.path)) ? 'active' : ''}`} type="button" onClick={() => onNavigate(item.path)}>
                   <Icon name={item.icon} />
                   <span>{item.label}</span>
                 </button>
@@ -59,7 +59,7 @@ export function SideBar({
         ))}
       </ul>
 
-      <button className="sidebar-cta" type="button" onClick={() => onNavigate('/dashboard')}>
+      <button className="sidebar-cta" type="button" onClick={() => onNavigate(userRole === 'Lawyer' ? '/upload' : '/monitoring')}>
         {userRole === 'Lawyer' ? 'New Analysis' : 'View Performance'}
       </button>
     </aside>

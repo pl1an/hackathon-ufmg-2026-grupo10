@@ -1,16 +1,29 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import inspect
 
-from app.core.logging import configure_logging
+from app.core.logging import configure_logging, get_logger
 from app.routers import analysis, auth, metrics, processes
+from app.db.base import Base
+from app.db.session import engine
+import app.db.models  # noqa
 
 configure_logging()
+logger = get_logger(__name__)
+
+# Inicializar Banco de Dados
+try:
+    Base.metadata.create_all(bind=engine)
+    inspector = inspect(engine)
+    logger.info("Banco de dados pronto. Tabelas: %s", inspector.get_table_names())
+except Exception as e:
+    logger.error("Erro ao criar tabelas: %s", str(e))
 
 app = FastAPI(title="EnterOS API", version="0.1.0", docs_url="/docs", redoc_url="/redoc")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

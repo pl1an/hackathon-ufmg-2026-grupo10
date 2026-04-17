@@ -51,7 +51,8 @@ function App() {
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/home" element={renderWorkspace(<Home />)} />
         <Route path="/upload" element={renderWorkspace(<UploadScreen />)} />
-        <Route path="/dashboard/:processoId?" element={renderWorkspace(<DashboardScreen />)} />
+        <Route path="/processes" element={renderWorkspace(<DashboardScreen />)} />
+        <Route path="/dashboard/:processoId" element={renderWorkspace(<DashboardScreen />)} />
         <Route path="/monitoring" element={renderWorkspace(<MonitoringScreen />)} />
         <Route path="*" element={<Navigate to={isLoginView ? '/login' : '/home'} replace />} />
       </Routes>

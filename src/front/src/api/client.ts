@@ -13,6 +13,13 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
   (res) => res,
   (error) => {
+    console.error('API Error:', {
+      url: error.config?.url,
+      method: error.config?.method,
+      status: error.response?.status,
+      data: error.response?.data,
+      message: error.message
+    });
     if (error.response?.status === 401) {
       localStorage.removeItem('access_token');
       window.location.href = '/login';

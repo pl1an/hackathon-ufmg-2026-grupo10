@@ -1,8 +1,14 @@
-import { statsCards } from '../../../data';
 import { Icon } from '../Icon';
 import './ExecutiveMonitoringDashboard.css';
 
 export function ExecutiveMonitoringDashboard({ className = '' }: { className?: string }) {
+    const statsCards = [
+        { label: 'Total Decisions', value: '1,429', note: '+12% vs LY', icon: 'task_alt' },
+        { label: 'Settlement Adherence', value: '94.2%', note: 'On Target', icon: 'verified_user' },
+        { label: 'Total Savings', value: 'R$ 2.4M', note: 'R$ 240k Saved', icon: 'payments' },
+        { label: 'High-Risk Cases', value: '42', note: 'Live Attention', icon: 'warning' },
+    ];
+    
   return (
     <section className={`panel panel-inner hero-banner executive-monitoring-dashboard ${className}`.trim()}>
       <div className="title-kicker executive-monitoring-dashboard__kicker">Executive Monitoring</div>

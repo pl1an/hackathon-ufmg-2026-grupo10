@@ -1,20 +1,20 @@
 @import '../../theme/theme.css';
 
 .executive-monitoring-dashboard {
-  background: rgba(17, 17, 18, 0.92);
-  color: #f3f3f3;
+  background: var(--executive-dashboard-surface);
+  color: var(--executive-dashboard-text);
 }
 
 .executive-monitoring-dashboard__kicker {
-  color: #ffb77d;
+  color: var(--executive-dashboard-kicker);
 }
 
 .executive-monitoring-dashboard__headline {
-  color: #f7f7f7;
+  color: var(--executive-dashboard-text);
 }
 
 .executive-monitoring-dashboard__lede {
-  color: rgba(241, 241, 241, 0.72);
+  color: var(--executive-dashboard-muted);
 }
 
 .executive-monitoring-dashboard__stats {
@@ -22,14 +22,14 @@
 }
 
 .executive-monitoring-dashboard__stat-card {
-  background: rgba(255, 255, 255, 0.06);
-  color: #f3f3f3;
-  border-color: rgba(255, 255, 255, 0.08);
+  background: var(--executive-dashboard-card-bg);
+  color: var(--executive-dashboard-text);
+  border-color: var(--executive-dashboard-card-border);
 }
 
 .executive-monitoring-dashboard__stat-card--accent {
   background: linear-gradient(135deg, var(--primary), var(--primary-soft));
-  color: white;
+  color: var(--executive-dashboard-text);
 }
 
 .executive-monitoring-dashboard__stat-head {
@@ -37,25 +37,25 @@
 }
 
 .executive-monitoring-dashboard__stat-icon {
-  color: #bdbdbd;
+  color: var(--executive-dashboard-muted);
 }
 
 .executive-monitoring-dashboard__stat-icon--accent {
-  color: rgba(255, 255, 255, 0.85);
+  color: color-mix(in srgb, var(--executive-dashboard-text) 85%, transparent);
 }
 
 .executive-monitoring-dashboard__note {
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffb77d;
+  background: var(--executive-dashboard-note-bg);
+  color: var(--executive-dashboard-note-text);
 }
 
 .executive-monitoring-dashboard__note--accent {
-  background: rgba(255, 255, 255, 0.16);
-  color: white;
+  background: var(--executive-dashboard-note-accent-bg);
+  color: var(--executive-dashboard-note-accent-text);
 }
 
 .executive-monitoring-dashboard__stat-label--accent {
-  color: rgba(255, 255, 255, 0.7);
+  color: color-mix(in srgb, var(--executive-dashboard-text) 70%, transparent);
 }
 
 .executive-monitoring-dashboard__stat-value {

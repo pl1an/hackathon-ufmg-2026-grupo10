@@ -2,14 +2,19 @@ import { Icon } from '../Icon';
 import { useMemo } from 'react';
 import type { UserRole } from '../LoginRoleSelector/LoginRoleSelector';
 import './SideBar.css';
+import { themeOptions, type ThemeName } from '../../theme/palettes';
 
 
 export function SideBar({
   currentPath,
+  theme,
   onNavigate,
+  onToggleTheme,
 }: {
   currentPath: string;
+  theme: ThemeName;
   onNavigate: (nextPath: string) => void;
+  onToggleTheme: () => void;
 }) {
 
 
@@ -36,6 +41,9 @@ export function SideBar({
           <h1 className="brand-name">EnterOS</h1>
           <p className="brand-subtitle">Legal Division</p>
         </div>
+        <button type="button" className="sidebar-theme-button" onClick={onToggleTheme} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
+          <Icon name={theme === 'light' ? 'dark_mode' : 'light_mode'} />
+        </button>
       </div>
 
       <ul className="nav-list">

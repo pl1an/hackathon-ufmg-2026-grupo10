@@ -63,10 +63,10 @@ export function DashboardScreen() {
             ))}
           </div>
 
-          <div className="glass-card dashboard-screen__audit" style={{ marginTop: 18, background: 'rgba(255, 255, 255, 0.62)' }}>
+          <div className="glass-card dashboard-screen__audit" style={{ marginTop: 18 }}>
             <div className="section-heading" style={{ marginBottom: 8 }}>
               <div className="doc-main" style={{ gap: 10 }}>
-                <Icon name="info" style={{ color: 'var(--primary)' }} />
+                <Icon name="info"/>
                 <h4 className="section-title-strong" style={{ fontSize: '0.9rem' }}>Audit Trail</h4>
               </div>
             </div>

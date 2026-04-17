@@ -92,7 +92,7 @@
 
 .home-screen__support-card {
 	margin-top: 20px;
-	background: rgba(255, 255, 255, 0.62);
+    background: var(--active_button_bg);
 }
 
 .home-screen__support-title {

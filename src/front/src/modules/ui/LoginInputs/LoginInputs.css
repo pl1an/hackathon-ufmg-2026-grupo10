@@ -22,11 +22,11 @@
 }
 
 .text-input {
-  width: calc(100% - 42px);
+  width: 100%;
   padding: 15px 16px 15px 42px;
   border: 1px solid rgba(91, 67, 52, 0.12);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.82);
+  background: var(--active_button_bg);
   outline: none;
   color: var(--text);
   transition: border-color 160ms ease, box-shadow 160ms ease;

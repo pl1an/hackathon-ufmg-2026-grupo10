@@ -2,6 +2,10 @@
   font-family: 'Inter', sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .theme-light,
 .theme-dark {
   min-height: 100vh;
@@ -28,6 +32,17 @@
   --warning: #a85a00;
   --border: rgba(91, 67, 52, 0.14);
   --shadow: 0 28px 70px rgba(56, 28, 0, 0.08);
+  --active_button_bg: rgba(255, 255, 255, 0.7);
+  --executive-dashboard-surface: rgba(255, 255, 255, 0.84);
+  --executive-dashboard-text: var(--text);
+  --executive-dashboard-muted: var(--text-muted);
+  --executive-dashboard-kicker: var(--primary);
+  --executive-dashboard-card-bg: rgba(255, 255, 255, 0.72);
+  --executive-dashboard-card-border: rgba(91, 67, 52, 0.1);
+  --executive-dashboard-note-bg: rgba(255, 140, 0, 0.12);
+  --executive-dashboard-note-text: var(--primary);
+  --executive-dashboard-note-accent-bg: rgba(255, 255, 255, 0.16);
+  --executive-dashboard-note-accent-text: white;
 }
 
 .theme-dark {
@@ -50,6 +65,17 @@
   --warning: #ffbf69;
   --border: rgba(255, 255, 255, 0.1);
   --shadow: 0 28px 70px rgba(0, 0, 0, 0.34);
+  --active_button_bg: rgba(255, 255, 255, 0.12);
+  --executive-dashboard-surface: rgba(18, 18, 20, 0.84);
+  --executive-dashboard-text: #f3f3f3;
+  --executive-dashboard-muted: rgba(241, 241, 241, 0.72);
+  --executive-dashboard-kicker: #ffb77d;
+  --executive-dashboard-card-bg: rgba(255, 255, 255, 0.06);
+  --executive-dashboard-card-border: rgba(255, 255, 255, 0.08);
+  --executive-dashboard-note-bg: rgba(255, 255, 255, 0.08);
+  --executive-dashboard-note-text: #ffb77d;
+  --executive-dashboard-note-accent-bg: rgba(255, 255, 255, 0.16);
+  --executive-dashboard-note-accent-text: white;
 }
 
 body {
@@ -188,7 +214,7 @@ input[type="checkbox"] {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--active_button_bg);
   color: var(--primary);
 }
 
@@ -505,7 +531,7 @@ input[type="checkbox"] {
 .ghost-button {
   padding: 12px 16px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--active_button_bg);
   color: var(--text);
   border: 1px solid rgba(91, 67, 52, 0.12);
 }

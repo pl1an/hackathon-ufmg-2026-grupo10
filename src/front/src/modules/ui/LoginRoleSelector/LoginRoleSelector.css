@@ -5,7 +5,7 @@
   gap: 8px;
   padding: 6px;
   border-radius: 18px;
-  background: rgba(243, 236, 228, 0.8);
+  background: var(--active_button_bg);
 }
 
 .tab {

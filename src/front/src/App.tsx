@@ -10,15 +10,26 @@ import { SideBar } from './modules/ui/SideBar/SideBar';
 import { Home } from './screens/Home/Home';
 
 function App() {
-  const [theme, setTheme] = useState<ThemeName>('light');
+  const [theme, setTheme] = useState<ThemeName>(() => {
+    const savedTheme = window.localStorage.getItem('enteros-theme');
+    return savedTheme === 'dark' ? 'dark' : 'light';
+  });
   const navigate = useNavigate();
   const location = useLocation();
   const themeClassName = getThemeClassName(theme);
   const isLoginView = location.pathname === '/' || location.pathname === '/login';
 
+  const handleToggleTheme = () => {
+    setTheme((currentTheme) => {
+      const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+      window.localStorage.setItem('enteros-theme', nextTheme);
+      return nextTheme;
+    });
+  };
+
   const renderWorkspace = (content: ReactNode) => (
     <div className="layout">
-      <SideBar currentPath={location.pathname} onNavigate={(path) => navigate(path)} />
+      <SideBar currentPath={location.pathname} theme={theme} onNavigate={(path) => navigate(path)} onToggleTheme={handleToggleTheme} />
 
       <div className="content">
         {content}

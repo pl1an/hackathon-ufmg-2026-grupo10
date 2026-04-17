@@ -87,10 +87,3 @@ export const performanceRows = [
   { initials: 'RB', name: 'Ricardo Barbosa', role: 'Junior Partner', cases: 98, adherence: 72, recommended: 'R$ 310k', actual: 'R$ 390k', tone: 'warning' },
   { initials: 'LV', name: 'Lucia Viana', role: 'Outsourced', cases: 242, adherence: 91, recommended: 'R$ 1.2M', actual: 'R$ 1.1M', tone: 'success' },
 ];
-
-export const statsCards = [
-  { label: 'Total Decisions', value: '1,429', note: '+12% vs LY', icon: 'task_alt' },
-  { label: 'Settlement Adherence', value: '94.2%', note: 'On Target', icon: 'verified_user' },
-  { label: 'Total Savings', value: 'R$ 2.4M', note: 'R$ 240k Saved', icon: 'payments' },
-  { label: 'High-Risk Cases', value: '42', note: 'Live Attention', icon: 'warning' },
-];

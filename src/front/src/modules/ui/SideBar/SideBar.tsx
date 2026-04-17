@@ -1,6 +1,7 @@
 import { Icon } from '../Icon';
 import { useMemo } from 'react';
 import type { UserRole } from '../LoginRoleSelector/LoginRoleSelector';
+import './SideBar.css';
 
 
 export function SideBar({

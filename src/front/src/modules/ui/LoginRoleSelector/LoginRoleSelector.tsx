@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './LoginRoleSelector.css';
 
 export type UserRole = 'Lawyer' | 'Bank Administrator';
 

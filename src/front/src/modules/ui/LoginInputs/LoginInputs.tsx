@@ -6,11 +6,11 @@ import './LoginInputs.css';
 interface LoginInputsProps {
     inputType: "Login" | "Password";
     placeholder?: string;
-    setValueFunction?: (value: string) => void;
+    value: string;
+    onChange: (value: string) => void;
 }
 
-export const LoginInputs = ({ inputType, placeholder, setValueFunction }: LoginInputsProps) => {
-    const [inputValue, setInputValue] = useState("");
+export const LoginInputs = ({ inputType, placeholder, value, onChange }: LoginInputsProps) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     return (
@@ -29,15 +29,15 @@ export const LoginInputs = ({ inputType, placeholder, setValueFunction }: LoginI
                 {inputType === "Login" && (<>
                     <Icon name="person" className="icon-prefix" />
                     <input 
-                        className="text-input" type="text" placeholder={placeholder || (inputType === "Login" ? "username@bankufmg.com" : undefined)}
-                        value={inputValue} onChange={(e) => {setInputValue(e.target.value); if(setValueFunction) setValueFunction(e.target.value)}} 
+                        className="text-input" type="text" placeholder={placeholder || "username@banco.com"}
+                        value={value} onChange={(e) => onChange(e.target.value)} 
                     />
                 </>)}
                 {inputType === "Password" && (<>
                     <Icon name="lock" className="icon-prefix" />
                     <input 
                         id="password" className="text-input" type={isPasswordVisible ? "text" : "password"} placeholder={placeholder || "••••••••••••"} 
-                        value={inputValue} onChange={(e) => {setInputValue(e.target.value); if(setValueFunction) setValueFunction(e.target.value)}}
+                        value={value} onChange={(e) => onChange(e.target.value)}
                     />
                     <button 
                         type="button" className="icon-button icon-suffix" aria-label="Toggle password visibility"

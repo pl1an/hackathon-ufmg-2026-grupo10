@@ -107,7 +107,7 @@ def evaluate_settlement(
         f"Pontos Fortes Pré-analisados: {', '.join(context.pontos_fortes) if context.pontos_fortes else 'Nenhum'}\n"
         f"Pontos Fracos Pré-analisados: {', '.join(context.pontos_fracos) if context.pontos_fracos else 'Nenhum'}\n\n"
         f"--- CONTEÚDO DOS DOCUMENTOS ---\n"
-        f"{context.document_texts} # Truncado para limite de contexto"
+        f"{context.document_texts}"
     )
 
     response = client.beta.chat.completions.parse(
